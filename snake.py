@@ -24,9 +24,9 @@ def snake():
     tela = pygame.display.set_mode((largura, altura))
     clock = pygame.time.Clock()
     
-    fonte_menor = pygame.font.SysFont(None, 25, True, False)
-    fonte = pygame.font.SysFont(None, 30, True, True)
-    fonte_maior = pygame.font.SysFont(None, 50, True, True)
+    fonte_menor = pygame.font.SysFont('Arial', 25, True, False)
+    fonte = pygame.font.SysFont('Arial', 30, True, True)
+    fonte_maior = pygame.font.SysFont('Arial', 50, True, True)
     
     x_snake = 400
     y_snake = 400
@@ -39,9 +39,13 @@ def snake():
     esquerda = False
     direita = True
 
+    crescimento = 0
     pontos = 0
     pontuou = True
     fim = False
+
+    velocidade = 40
+    vel_max = 60 
 
     while True:
         tela.fill(preto)
@@ -60,7 +64,7 @@ def snake():
                     cima = esquerda = direita = False
                 elif (event.key == pygame.K_a or event.key == pygame.K_LEFT) and not direita:
                     esquerda = True
-                    cima = baixo = direito = False
+                    cima = baixo = direita = False
                 elif (event.key == pygame.K_d or event.key == pygame.K_RIGHT) and not esquerda:
                     direita = True
                     cima = baixo = esquerda = False
@@ -85,8 +89,8 @@ def snake():
             fim = True
 
         if pontuou:
-            x_comida = randint(arena.left + 20, arena.right - 20)
-            y_comida = randint(arena.top + 20, arena.bottom - 20)
+            x_comida = randint((arena.left+20)//5, (arena.right-20)//5) * 5
+            y_comida = randint((arena.top+20)//5, (arena.bottom-20)//5) * 5
             pontuou = False
 
         comida = pygame.draw.rect(tela, (200, 30, 30), (x_comida, y_comida, 15, 15))
@@ -95,44 +99,50 @@ def snake():
         cabeca = blocos[-1]
         if cabeca.colliderect(comida):
             pontos += 1
+            crescimento += 1.5
             pontuou = True
+            if velocidade < vel_max:
+                velocidade += 1
 
         for i in range(len(blocos) - 1):
             if cabeca.colliderect(blocos[i]) and pontos > 0:
                 fim = True
 
         posicoes.append([x_snake, y_snake])
-        if not pontuou and not fim:
+        if crescimento > 0:
+            crescimento -= 1
+        elif not pontuou and not fim:
             posicoes.pop(0)
 
-        pontos_display = f'Pontos: {pontos}'
-        pontos_display = fonte.render(pontos_display, True, branco)
-        tela.blit(pontos_display, (30, 40))
+        pontos_display = fonte.render(f'Pontos: {pontos}', True, branco)
+        pontos_rect = pontos_display.get_rect(center=(50, 50))
+        tela.blit(pontos_display, (40, 40))
 
-        esc_display = 'Pressione ESC para voltar ao menu'
+        esc_display = 'Pressione ESC para sair'
         esc_display = fonte_menor.render(esc_display, True, (0, 100, 200))
-        esc_display_rect = esc_display.get_rect(center=(480, 600))
+        esc_display_rect = esc_display.get_rect(center=(largura//2, altura - 40))
         tela.blit(esc_display, esc_display_rect)
 
         if fim:
-            fim_display = fonte_maior.render('GAME OVER', True, branco)
-            fim_rect = fim_display.get_rect(center=(480, 70))
+            fim_display = fonte_maior.render('GAME OVER', True, (200, 0, 0))
+            fim_rect = fim_display.get_rect(center=(largura//2, 60))
             tela.blit(fim_display, fim_rect)
 
-            R_display = 'Pressione R para reiniciar'
-            R_display = fonte_menor.render(R_display, True, (0, 100, 200))
-            R_display_rect = R_display.get_rect(center=(480, 560))
-            tela.blit(R_display, R_display_rect)
+            r_display = 'Pressione R para reiniciar'
+            r_display = fonte_menor.render(r_display, True, (0, 100, 200))
+            r_display_rect = r_display.get_rect(center=(largura//2, altura - 80))
+            tela.blit(r_display, r_display_rect)
 
             if pygame.key.get_pressed()[K_r]:
                 fim = False
                 pontuou = True
                 pontos = 0
+                velocidade = 40
                 x_snake = y_snake = 400
                 posicoes = deepcopy(posicoes_inicio)
                 direita = True
                 cima = baixo = esquerda = False
 
-        clock.tick(60)
+        clock.tick(velocidade)
         pygame.display.update()
 
