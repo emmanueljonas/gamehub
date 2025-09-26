@@ -5,9 +5,9 @@ from sys import exit
 
 branco = (255, 255, 255)
 preto = (0, 0, 0)
-verde = (0, 180, 0)
-vermelho = (200, 0, 0)
-azul = (0, 100, 200)
+verde = (0, 200, 0)
+vermelho = (220, 0, 0)
+azul = (0, 0, 200)
 
 largura = 960
 altura = 640
