@@ -136,5 +136,4 @@ def jogo_da_forca():
 
         clock.tick(60)
         pygame.display.update()
-
-jogo_da_forca()
+        
