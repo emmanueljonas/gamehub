@@ -6,10 +6,12 @@
 
 ## 🎮 Como jogar
 
-1. Acesse a aba **[Releases](../../releases)** do repositório.  
+1. Acesse a aba **[Releases](../../releases)** do repositório.
+
 2. Baixe a versão correspondente ao seu sistema operacional:  
-   - **Windows** → baixe o arquivo `GameHub.exe`.  
-   - **Linux (Ubuntu/Debian)** → baixe o arquivo `GameHub-linux`.  
+   - **Windows** → baixe o arquivo `GameHub.exe`.
+   - **Linux (Ubuntu/Debian)** → baixe o arquivo `GameHub-linux`.
+
 3. Execute o arquivo baixado
    
 ---
