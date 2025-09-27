@@ -10,5 +10,5 @@
 ---
 
 ## 📝 Créditos
-- **José Kauan**: Adivinhação, Labirinto, Pac-man, Hub  
+- **José Kauan**: Jogo da Adivinhação, Labirinto, Pac-man, Hub  
 - **Jonas Emmanuel**: Jogo da Forca, Space-shooter, Snake
