@@ -1,6 +1,5 @@
 import pygame
 import random
-from sys import exit
 from pygame.locals import *
 
 def space_shooter():
@@ -52,7 +51,6 @@ def space_shooter():
         todos_sprites.add(tiro)
 
     def criar_inimigo():
-        # pesos ajustados: brancos > amarelos > vermelhos
         tipo = random.choices(["normal", "amarelo", "vermelho"], weights=[0.6, 0.3, 0.1])[0]
         tam = random.randint(20, 40)
         inimigo = pygame.sprite.Sprite()
@@ -69,7 +67,7 @@ def space_shooter():
             inimigo.vely = random.uniform(2, 3)
             inimigo.vidas = 1
             inimigo.valor = 5
-        else:  # vermelho
+        else:
             cor = vermelho
             inimigo.vely = random.uniform(3, 4)
             inimigo.vidas = 2
@@ -105,29 +103,24 @@ def space_shooter():
         tela_jogo.blit(txt, txt.get_rect(center=(largura//2, altura*2//3)))
         tela_principal.blit(tela_jogo, ((960 - largura)//2, (640 - altura)//2))
         pygame.display.flip()
-        esperando = True
-        while esperando:
+        while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    pygame.quit()
-                    exit()
+                    return True
                 if event.type == KEYDOWN:
                     if event.key == K_r:
-                        esperando = False
+                        return False
                     if event.key == K_ESCAPE:
-                        pygame.quit()
-                        exit()
+                        return True
 
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
-                exit()
+                return
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    pygame.quit()
-                    exit()
+                    return
                 if event.key == K_SPACE:
                     agora = pygame.time.get_ticks()
                     if agora - ultimo_tiro > atraso_tiro:
@@ -165,7 +158,8 @@ def space_shooter():
                 nave.vidas -= inimigo.vidas
                 inimigo.kill()
                 if nave.vidas <= 0:
-                    tela_gameover()
+                    if tela_gameover():
+                        return
                     inimigos.empty()
                     tiros.empty()
                     todos_sprites.empty()
@@ -215,4 +209,5 @@ def space_shooter():
         tela_principal.blit(txt, (20, 50))
 
         pygame.display.update()
+    return
 

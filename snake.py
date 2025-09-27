@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from sys import exit
 from random import randint
 from copy import deepcopy
 
@@ -52,8 +51,7 @@ def snake():
 
         for event in pygame.event.get():
             if event.type == QUIT or pygame.key.get_pressed()[K_ESCAPE]:
-                pygame.quit()
-                exit()
+                return
 
             if not fim and event.type == KEYDOWN:
                 if (event.key == pygame.K_w or event.key == pygame.K_UP) and not baixo:

@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 from random import choice
-from sys import exit
 
 branco = (255, 255, 255)
 preto = (0, 0, 0)
@@ -59,8 +58,7 @@ def jogo_da_forca():
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or pygame.key.get_pressed()[K_ESCAPE]:
-                pygame.quit()
-                exit()
+                return
 
             if event.type == KEYDOWN:
                 letra = str(pygame.key.name(event.key)).upper()
@@ -136,4 +134,4 @@ def jogo_da_forca():
 
         clock.tick(60)
         pygame.display.update()
-        
+
