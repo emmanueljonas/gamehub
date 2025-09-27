@@ -1,6 +1,6 @@
 # Gamehub 🎮
 
-**GameHub** é um pequeno projeto desenvolvido para finalizar a cadeira de **Programação 1** na **UFCG**.  
+**Gamehub** é um pequeno projeto desenvolvido para finalizar a cadeira de **Programação 1** na **UFCG**.  
 
 ---
 
