@@ -4,12 +4,6 @@
 
 ---
 
-## 👥 Equipe
-- **Jonas Emmanuel**  
-- **José Kauan**
-
----
-
 ## 🚀 Como jogar
 
 
